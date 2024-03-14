@@ -1,7 +1,6 @@
 <?php
 
 require_once 'conf.php';
-include_once 'helper/form_functions';
 
 //Dadurch bekommme ich die Zimmer der jeweiligen Etage
 function processForm($data) {

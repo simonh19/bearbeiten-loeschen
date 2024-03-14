@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="etage">Etage wählen</label>
             <?php echo createDropdown('etage', $zimmerListe); ?>
         </div>
-        <button type="submit" class="btn btn-primary">Speichern</button>
+        <button type="submit" class="btn btn-primary">Anzeigen</button>
     </form>
     <div>
         <?php if ($stateChanged) { echo generateTableFromQuery($conn,$gefundeneZimmer,$tableId,$tableName); } ?>

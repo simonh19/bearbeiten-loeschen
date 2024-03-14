@@ -51,7 +51,7 @@ global $conn;
                 include_once($fullUrl . ".php");
             }
         } else {
-            echo generateTableFromQuery($conn,$stmt,"ort_id","ort");
+            echo generateTableFromQuery($conn,$stmt,"zim_id","zimmer");
         }
     ?>
 </div>
