@@ -23,7 +23,7 @@ function getUrlParamName($urlParam)
 
 function executeQuery($conn, $query){
     $stmt = $conn->prepare($query);
-    $stmt->execute([$suchbegriff]);
+    $stmt->execute();
 
     return $stmt;
 }
