@@ -1,6 +1,7 @@
 <?php
 
 require_once 'conf.php';
+include_once 'helper/form_functions.php'
 
 //Dadurch bekommme ich die Zimmer der jeweiligen Etage
 function processForm($data) {
@@ -12,9 +13,7 @@ function processForm($data) {
     
     $suchbegriff = $data['selectedEtage'] ?? '';
     //$startDatumVorhanden = isset($data['date-start']) && !empty($data['date-start']);
-
-    $stmt = $conn->prepare($query);
-    $stmt->execute([$suchbegriff]);
-
+    
+    $stmt = executeQuery($conn,$query);
     return $stmt;
 }

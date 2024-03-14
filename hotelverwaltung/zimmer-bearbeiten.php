@@ -19,8 +19,8 @@ if(!empty($parts))
 {
     $paramValue = getUrlParam($parts[1]);
     $zim_id=$paramValue;
-    $vorname = getValue($conn,$tableName,'zim_nr','zim_id',$zim_id);
-    $nachname = getValue($conn,$tableName,'zim_etage','zim_id',$zim_id);
+    $zimmernummer = getValue($conn,$tableName,'zim_nr','zim_id',$zim_id);
+    $zimmeretage = getValue($conn,$tableName,'zim_etage','zim_id',$zim_id);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -36,25 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $zimmernummerValueDb = ['zim_nr' => $zimmernummer];
     $zimmeretageValueDb = ['zim_etage' => $zimmeretage];
 
-    //Hier werden die Daten von dem Formular in die Datenbank gespeichert.
-    //Falls den Eintrag noch nicht gibt, dann gehe in die IF
-    //Hier wird überprüft OB es einen Wert schon in der Datenbank gibt.
-   //Hier wird der Wert erstellt
-    if (!recordExists2($conn, 'zimmer', 'zim_nr','zim_etage', $zimmernummer, $zimmeretage) && !str_contains($site,"?")) {
-        //addRecord speichert die Daten von neuesOrt,neuesPlz dann in die Datenbank.'ort' ist der Name der Tabelle.
-        $newZimmerData = $zimmernummerValueDb + $zimmeretageValueDb;
-        $newZimmerId = addRecord($conn, 'zimmer', $newZimmerData );//Hier bekommt man die Id von den eingefügten Daten zurück.
-        //Durch getValue bekommt man einen einzigen Wert von einer Datenbank. 'plz' ist der Tabellenname. plz_id ist das was ich suche. plz_nr ist die Spalte für die where-
-        //bedingung. $plz ist der Wert für die where-bedingung.
-        //select pLz_id from plz where plz_nr = 4020
-
-        showAlertSuccess("Zimmer wurde hinzugefügt.");
-        //Daten von Formular wurde in die Datenbank gespeichert.
-        $stateChanged = true;
-    }
-    //Hier wird der Wert upgedatet
-    else
-    {
+    
             //Vorbereitung zur Speicherung HIER JEWEILIGE ID EINGEBEN
             $zimmerSuchBedienung = ['zim_id = ' . $zim_id];
             //PLZ bleibt gleich, Ort verändert sich HIER AKTUELLE DATEN EINGEBEN
@@ -65,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stateChanged = true;
 
             //UPDATE RECORD DUPLIZIEREN WENN MAN MEHRERE TABELLEN BRAUCHT und bei tablename die entsprechende Tabelle reinschreiben
-        }
+
 }
 
 ?>

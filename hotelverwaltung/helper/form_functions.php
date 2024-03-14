@@ -20,6 +20,14 @@ function getUrlParamName($urlParam)
     } else return [];
 }
 
+
+function executeQuery($conn, $query){
+    $stmt = $conn->prepare($query);
+    $stmt->execute([$suchbegriff]);
+
+    return $stmt;
+}
+
 //Immer wenn ich etwas von einem Formular(Post-Formular) haben will, dann verwende ich diese Funktion
 function getPostParameter($paramName, $defaultValue = '') {
     return isset($_POST[$paramName]) ? trim($_POST[$paramName]) : $defaultValue;

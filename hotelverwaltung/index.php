@@ -28,20 +28,17 @@ global $conn;
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link" href="index.php">Willkommensseite</a>
-            <a class="nav-item nav-link" href="index.php?site=manage_address">Zimmer je Etage</a>
+            <a class="nav-item nav-link" href="index.php?site=zimmer_je_etage">Zimmer je Etage</a>
         </div>
     </div>
 </nav>
 <div class='container d-flex align-items-center flex-column mt-4 gap-4'>
     <h3>Willkommen</h3>
     <?php
-
-        $selectOrteQuery = "select o.ort_id, p.plz_nr as plz, o.ort_name as ort, s.str_name as strasse from ort_plz op
-        join ort o on op.ort_id = o.ort_id
-        join plz p on op.plz_id = p.plz_id
-        left join strasse_ort_plz sop on op.orpl_id = sop.orpl_id
-        left join strasse s on sop.str_id = s.str_id;";
-
+        $query = "select zim.zim_etage as Etage,rt.raty_name as Raumtyp,zim.zim_nr as Zimmernummer,zim.zim_id
+        from zimmer zim
+        join raumtyp rt on zim.raty_id = rt.raty_id";
+        $stmt = executeQuery($conn,$query);
         if (isset($_GET["site"])) {
             $fullUrl = $_GET["site"];
             if (str_contains($fullUrl, "?")) {
@@ -54,7 +51,7 @@ global $conn;
                 include_once($fullUrl . ".php");
             }
         } else {
-            echo generateTableFromQuery($conn, $selectOrteQuery,"ort_id","ort");
+            echo generateTableFromQuery($conn,$stmt,"ort_id","ort");
         }
     ?>
 </div>
