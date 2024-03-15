@@ -29,6 +29,7 @@ global $conn;
         <div class="navbar-nav">
             <a class="nav-item nav-link" href="index.php">Willkommensseite</a>
             <a class="nav-item nav-link" href="index.php?site=zimmer_je_etage">Zimmer je Etage</a>
+            <a class="nav-item nav-link" href="index.php?site=buchung_erstellen">Buchung erstellen</a>
         </div>
     </div>
 </nav>

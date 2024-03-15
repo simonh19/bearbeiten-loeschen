@@ -11,11 +11,22 @@ function getValues($conn, $table, $column) {
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
-    // wird die daten in einem array speichern
+    // wird die Daten in einem Array speichern
     $values = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
     return $values;
 }
+
+function getValuesByQuery($conn, $query) {
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+
+    // wird die Daten in einem Array speichern
+    $values = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+    return $values;
+}
+
 
 //Macht das Gleiche, aber man bekommt nur einen Wert. Parameter: Ich will $folgendenWert wo $folgendeBedingung $folgendenWert hat.
 function getValue($conn, $table, $column, $conditionColumn, $conditionValue) {

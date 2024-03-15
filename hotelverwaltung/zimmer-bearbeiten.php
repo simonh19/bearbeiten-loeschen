@@ -36,18 +36,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $zimmernummerValueDb = ['zim_nr' => $zimmernummer];
     $zimmeretageValueDb = ['zim_etage' => $zimmeretage];
 
+    //Vorbereitung zur Speicherung HIER JEWEILIGE ID EINGEBEN
+    $zimmerSuchBedienung = ['zim_id = ' . $zim_id];
+    //PLZ bleibt gleich, Ort verändert sich HIER AKTUELLE DATEN EINGEBEN
+
+    $queryZimmernummer ='select count(*) from zimmer
+    where zim_nr = ?';
+    $stmt = $conn -> prepare($queryZimmernummer);
+    $stmt -> execute([$zimmernummer]);
+    $result = $stmt -> fetch(PDO::FETCH_COLUMN);
+   
+    if($result == 0){
+        $zimmerData= $zimmernummerValueDb + $zimmeretageValueDb;
+        updateRecord($conn, $tableName, $zimmerData, $zimmerSuchBedienung);
+        //PLZ bleibt eigentlich gleich, wird hier aber nocheinmal zugewiesen.
+        showAlertSuccess("Zimmer ist bereits vorhanden. $tableName wurde aktualisiert.");
+        $stateChanged = true;
+        //UPDATE RECORD DUPLIZIEREN WENN MAN MEHRERE TABELLEN BRAUCHT und bei tablename die entsprechende Tabelle reinschreiben
+    }else{
+        showAlertWarning("Die Zimmernummer $zimmernummer ist bereits vorhanden.");
+    }
+
     
-            //Vorbereitung zur Speicherung HIER JEWEILIGE ID EINGEBEN
-            $zimmerSuchBedienung = ['zim_id = ' . $zim_id];
-            //PLZ bleibt gleich, Ort verändert sich HIER AKTUELLE DATEN EINGEBEN
-            $zimmerData= $zimmernummerValueDb + $zimmeretageValueDb;
-            updateRecord($conn, $tableName, $zimmerData, $zimmerSuchBedienung);
-            //PLZ bleibt eigentlich gleich, wird hier aber nocheinmal zugewiesen.
-            showAlertSuccess("Zimmer ist bereits vorhanden. $tableName wurde aktualisiert.");
-            $stateChanged = true;
-
-            //UPDATE RECORD DUPLIZIEREN WENN MAN MEHRERE TABELLEN BRAUCHT und bei tablename die entsprechende Tabelle reinschreiben
-
 }
 
 ?>
